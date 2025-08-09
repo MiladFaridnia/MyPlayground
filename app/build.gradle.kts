@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.annotationProcessor
 import org.gradle.kotlin.dsl.implementation
 
 plugins {
@@ -5,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("com.google.devtools.ksp") version "2.2.0-2.0.2"
     id("kotlin-kapt")
+    alias(libs.plugins.compose.compiler)
 
 }
 
@@ -38,13 +40,26 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.14" // Use the version compatible with your Kotlin version
+    }
+
 }
 
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     implementation(libs.androidx.room.compiler)
+    implementation(libs.androidx.runtime.android)
+    implementation(libs.androidx.ui.tooling.preview.android)
+
+    implementation(libs.androidx.runtime) // Use the latest stable version
+    // You might also need other Compose artifacts like ui, material, foundation, etc.
+    implementation(libs.androidx.ui)
+    implementation(libs.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -53,8 +68,14 @@ dependencies {
     implementation(libs.play.services.location)
 
     implementation (libs.androidx.room.runtime)
-    ksp (libs.androidx.room.compiler.v261)
 
     implementation(libs.dagger.compiler)
     ksp(libs.dagger.compiler)
+
+    // Dependency Injection
+    implementation (libs.hilt.android)
+    annotationProcessor (libs.hilt.android.compiler)
+    ksp (libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
 }

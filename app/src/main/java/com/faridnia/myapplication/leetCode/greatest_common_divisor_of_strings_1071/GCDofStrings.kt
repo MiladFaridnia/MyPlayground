@@ -35,15 +35,9 @@ class Solution {
         val gcdLength = gcd(str1.length, str2.length)
 
         val gcdString = str1.take(gcdLength)
-        var temp1 = ""
-        repeat((str1.length / gcdLength)) {
-            temp1 += gcdString
-        }
 
-        var temp2 = ""
-        repeat((str2.length / gcdLength)) {
-            temp2 += gcdString
-        }
+        val temp1 = gcdString.repeat(str1.length / gcdLength)
+        val temp2 = gcdString.repeat(str2.length / gcdLength)
 
         return if (temp1 == str1 && temp2 == str2) {
             gcdString

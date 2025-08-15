@@ -41,12 +41,6 @@ n == candies.length
 class Solution {
     fun kidsWithCandies(candies: IntArray, extraCandies: Int): List<Boolean> {
         val maximum = candies.max()
-        val result = BooleanArray(candies.size)
-
-        candies.forEachIndexed { index, it ->
-            result[index] = it + extraCandies >= maximum
-        }
-
-        return result.toList()
+        return candies.map { it + extraCandies >= maximum }
     }
 }

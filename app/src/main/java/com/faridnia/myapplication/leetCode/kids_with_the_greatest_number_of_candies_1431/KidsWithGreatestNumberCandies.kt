@@ -40,7 +40,7 @@ n == candies.length
 
 class Solution {
     fun kidsWithCandies(candies: IntArray, extraCandies: Int): List<Boolean> {
-        val maximum = candies.max()
+        val maximum = candies.maxOrNull() ?: return emptyList()
         return candies.map { it + extraCandies >= maximum }
     }
 }
